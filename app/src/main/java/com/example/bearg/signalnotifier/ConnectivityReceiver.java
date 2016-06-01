@@ -20,6 +20,11 @@ public class ConnectivityReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        int networkType = intent.getIntExtra(ConnectivityManager.EXTRA_NETWORK_TYPE, -1);
+
+        // only care about changes in mobile network status, not wifi or anything else
+        if (networkType != ConnectivityManager.TYPE_MOBILE) return;
+
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(context)
                 .setSmallIcon(android.R.drawable.ic_menu_help)
